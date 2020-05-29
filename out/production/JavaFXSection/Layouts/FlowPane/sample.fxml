@@ -1,0 +1,15 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane fx:controller="Layouts.FlowPane.Controller"
+           xmlns:fx="http://javafx.com/fxml" >
+    <Label text="The label text xxxxxxxxxxxxx" style="-fx-background-color: green"/>
+    <Button text="Button One" style="-fx-background-color: red"/>
+    <Label text="The label text" style="-fx-background-color: blue"/>
+
+
+</StackPane>
