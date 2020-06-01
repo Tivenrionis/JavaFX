@@ -17,6 +17,10 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.DatePicker?>
 <GridPane fx:controller="Controls.Controller"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
     <Button text="Click me" GridPane.rowIndex="0" GridPane.columnIndex="0">
@@ -52,20 +56,19 @@
         <RadioButton text="Green" toggleGroup="$colorToggleGroup"/>
     </VBox>
 
-    <VBox GridPane.rowIndex="0" GridPane.columnIndex="5">
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="3">
         <CheckBox text="Bird"/>
         <CheckBox text="Dog"/>
         <CheckBox text="Cat"/>
-        <CheckBox text="Spider"/>
     </VBox>
-    <HBox GridPane.rowIndex="0" GridPane.columnIndex="6">
+    <HBox GridPane.rowIndex="0" GridPane.columnIndex="4">
         <ToggleButton text="Toggle Me"/>
         <ToggleButton text="Hello"/>
         <ToggleButton text="GoodBye"/>
     </HBox>
-    <TextField GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <PasswordField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-    <ComboBox GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="2">
+    <TextField GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <PasswordField GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <ComboBox GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.columnSpan="2">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="This is Option 1"/>
@@ -79,7 +82,7 @@
             <String fx:value="NONE"/>
         </value>
     </ComboBox>
-    <ChoiceBox GridPane.rowIndex="2" GridPane.columnIndex="4">
+    <ChoiceBox GridPane.rowIndex="1" GridPane.columnIndex="4">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="cb1"/>
@@ -90,5 +93,11 @@
             </FXCollections>
         </items>
     </ChoiceBox>
+
+    <Slider GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="4" min="0" max="100" showTickLabels="true" showTickMarks="true"
+    minorTickCount="4" snapToTicks="true"/>
+    <Spinner GridPane.rowIndex="2" GridPane.columnIndex="4" GridPane.columnSpan="2" min="0" max="100" editable="true" initialValue="50"/>
+    <ColorPicker GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
 </GridPane>
