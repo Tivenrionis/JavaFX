@@ -10,6 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.ChoiceBox?>
 <GridPane fx:controller="Controls.Controller"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
     <Button text="Click me" GridPane.rowIndex="0" GridPane.columnIndex="0">
@@ -55,6 +62,33 @@
         <ToggleButton text="Toggle Me"/>
         <ToggleButton text="Hello"/>
         <ToggleButton text="GoodBye"/>
-
     </HBox>
+    <TextField GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <PasswordField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <ComboBox GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="2">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="This is Option 1"/>
+                <String fx:value="This is Option 2"/>
+                <String fx:value="This is Option 3"/>
+                <String fx:value="This is Option 4"/>
+                <String fx:value="This is Option 5"/>
+            </FXCollections>
+        </items>
+        <value>
+            <String fx:value="NONE"/>
+        </value>
+    </ComboBox>
+    <ChoiceBox GridPane.rowIndex="2" GridPane.columnIndex="4">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="cb1"/>
+                <String fx:value="cb2"/>
+                <String fx:value="cb3"/>
+                <String fx:value="cb4"/>
+                <String fx:value="cb5"/>
+            </FXCollections>
+        </items>
+    </ChoiceBox>
+
 </GridPane>
