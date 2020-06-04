@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class Controller {
         TodoItem item4 = new TodoItem("Pickup Doug at the train station", "Doug's arriving on March 23 on the 5:00 train",
                 LocalDate.of(2016, Month.MARCH, 23));
         TodoItem item5 = new TodoItem("Pick up dry cleaning", "The clothes should be ready by Wendsday",
-                LocalDate.of(2016, Month.APRIL, 20));
+                LocalDate.of(2016, Month.APRIL, 1));
         todoItems = new ArrayList<TodoItem>();
         todoItems.add(item1);
         todoItems.add(item2);
@@ -48,8 +49,13 @@ public class Controller {
             public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
 
                 if (newValue != null) {
-                    TodoItem item=todoListView.getSelectionModel().getSelectedItem();
+                    TodoItem item = todoListView.getSelectionModel().getSelectedItem();
                     textArea.setText(item.getDetails());
+                    //date forrmating -> w dokumentacji wiecej przykladow
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy");
+                    //end of formatting
+                    deadLineLabel.setText(dateTimeFormatter.format(item.getDeadLine()));
+
                 }
 
             }
