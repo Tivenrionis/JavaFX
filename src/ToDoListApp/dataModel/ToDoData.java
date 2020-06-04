@@ -29,10 +29,6 @@ public class ToDoData {
         return items;
     }
 
-    public void setItems(List<TodoItem> items) {
-        this.items = items;
-    }
-
     public void loadTodoItems() throws IOException {
         items = FXCollections.observableArrayList();
         Path path = Paths.get(fileName);
@@ -67,7 +63,7 @@ public class ToDoData {
                 bw.write(String.format("%s\t%s\t%s",
                         item.getShortDescription(),
                         item.getDetails(),
-                        item.getDeadLine()));
+                        formatter.format(item.getDeadLine())));
                 bw.newLine();
             }
         } finally {
