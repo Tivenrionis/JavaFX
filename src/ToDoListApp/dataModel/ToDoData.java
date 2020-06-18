@@ -1,20 +1,23 @@
 package ToDoListApp.dataModel;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class ToDoData {
     private static ToDoData instance = new ToDoData();
     private static String fileName = "ToDoListItems.txt";
-
-    private List<TodoItem> items;
+    // Trzeba zrobic z tego observable aby moc podpiac handlery, by na nowo nie populowac listy przy dodawaniu itemu
+    // private List<TodoItem> items;
+    private ObservableList<TodoItem> items;
     private DateTimeFormatter formatter;
 
     private ToDoData() {
@@ -25,7 +28,7 @@ public class ToDoData {
         return instance;
     }
 
-    public List<TodoItem> getItems() {
+    public ObservableList<TodoItem> getItems() {
         return items;
     }
 

@@ -63,8 +63,9 @@ public class Controller {
 
             }
         });
-
-        todoListView.getItems().setAll(ToDoData.getInstance().getItems());
+        // tutaj zastosowanie ObservableList
+        //todoListView.getItems().setAll(ToDoData.getInstance().getItems());
+        todoListView.setItems(ToDoData.getInstance().getItems());//
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         todoListView.getSelectionModel().selectFirst();
 
@@ -75,6 +76,7 @@ public class Controller {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
         dialog.setTitle("Add New ToDo Item");
+        dialog.setHeaderText("Use this dialog to create a new todo item.");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("todoItemDialog.fxml"));
         try {
@@ -91,7 +93,8 @@ public class Controller {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             DialogController controller = loader.getController();
             TodoItem newItem = controller.processResults();
-            todoListView.getItems().setAll(ToDoData.getInstance().getItems());
+            //majac Observable, nie potrzebuje tej lini, bo update pojdzie automatycznie tzw DATA BINDING
+            // todoListView.getItems().setAll(ToDoData.getInstance().getItems());
             todoListView.getSelectionModel().select(newItem);
             System.out.println("OK pressed");
         } else {
