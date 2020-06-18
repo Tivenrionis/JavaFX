@@ -38,8 +38,9 @@ public class TodoItem {
         this.deadLine = deadLine;
     }
 
-    @Override
-    public String toString() {
-        return this.shortDescription;
-    }
+    //Nie potrzebuje toStringa juz bo wszedzie uzywam getShortDescription
+//    @Override
+//    public String toString() {
+//        return this.shortDescription;
+//    }
 }
