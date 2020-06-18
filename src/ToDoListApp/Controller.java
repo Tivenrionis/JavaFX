@@ -4,6 +4,8 @@ import ToDoListApp.dataModel.ToDoData;
 import ToDoListApp.dataModel.TodoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -28,6 +30,8 @@ public class Controller {
     private TextArea textArea;
     @FXML
     private BorderPane mainBorderPane;
+    @FXML
+    private ContextMenu listContextMenu;
 
     public void initialize() {
 //        TodoItem item1 = new TodoItem("Mail birthday card", "Buy a 30th birthday card for John",
@@ -48,6 +52,18 @@ public class Controller {
 //        todoItems.add(item5);
 //
 //        ToDoData.getInstance().setItems(todoItems);
+
+        listContextMenu = new ContextMenu();
+        MenuItem deleteMenuItem = new MenuItem("Delete");
+        deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+                deleteItem(item);
+
+            }
+        });
+        listContextMenu.getItems().addAll(deleteMenuItem);
 
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
             // old poprzedni wybrany item, new nowo wybrany item ... by default oba null
@@ -92,7 +108,19 @@ public class Controller {
                     }
                 };
 
+                cell.emptyProperty().addListener(
+                        (obs, wasEmpty, isNowEmpty) ->
+                        {
+                            if (isNowEmpty) {
+                                cell.setContextMenu(null);
+                            } else {
+                                cell.setContextMenu(listContextMenu);
+                            }
+                        }
+
+                );
                 return cell;
+
             }
         });
     }
@@ -144,6 +172,17 @@ public class Controller {
         //     textArea.setText(sb.toString());
 
 
+    }
+
+    public void deleteItem(TodoItem item) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Todo Item");
+        alert.setHeaderText("Delete item " + item.getShortDescription());
+        alert.setContentText("Are you sure? Press OK to confirm, or CANCEL to back off.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            ToDoData.getInstance().deleteTodoItem(item);
+        }
     }
 
 }
