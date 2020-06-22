@@ -27,7 +27,7 @@
     <left>
 <!--       skoro dodalismy generyczny event handler ( new changelistener) mozemy wywalic onMouseClicked bo od teraz nasluchujemy zmian-->
 <!--        <ListView fx:id="todoListView" onMouseClicked="#handleClickListView">-->
-        <ListView fx:id="todoListView">
+        <ListView fx:id="todoListView" onKeyPressed="#handleKeyPressed">
         </ListView>
     </left>
     <center>
