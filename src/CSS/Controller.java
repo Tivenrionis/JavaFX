@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -17,6 +19,8 @@ public class Controller {
     private Button button4;
     @FXML
     private GridPane gridPane;
+    @FXML
+    private WebView webView;
 
     public void initialize() {
 //        label.setScaleX(6);
@@ -40,8 +44,7 @@ public class Controller {
 //        } else System.out.println("Chooser was canceled");
         List<File> files = chooser.showOpenMultipleDialog(gridPane.getScene().getWindow());
         if (files != null) {
-            for(File file : files)
-            {
+            for (File file : files) {
                 System.out.println(file.getPath());
             }
         } else System.out.println("Chooser was canceled");
@@ -57,5 +60,20 @@ public class Controller {
     public void handleMouseExit() {
         label.setScaleX(1);
         label.setScaleY(1);
+    }
+
+    @FXML
+    public void handleClicked() {
+//        System.out.println("Link was clicked");
+//        try {
+//            Desktop.getDesktop().browse(new URI("http://www.javafx.com"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (URISyntaxException u) {
+//            u.printStackTrace();
+//        }
+
+        WebEngine engine = webView.getEngine();
+        engine.load("http://www.javafx.com");
     }
 }
