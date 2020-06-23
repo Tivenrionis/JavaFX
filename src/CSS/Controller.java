@@ -5,9 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
-import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.List;
 
 public class Controller {
     @FXML
@@ -25,14 +26,25 @@ public class Controller {
 
     @FXML
     public void handleClick() {
-        //  FileChooser chooser = new FileChooser();
-        DirectoryChooser chooser = new DirectoryChooser();
-        File file = chooser.showDialog(gridPane.getScene().getWindow());
-        if (file != null) {
-            System.out.println(file.getPath());
-        }
-        else System.out.println("Chooser was canceled");
-
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save Application File");
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text", "*.txt"),
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
+        // DirectoryChooser chooser = new DirectoryChooser();
+//        File file = chooser.showSaveDialog(gridPane.getScene().getWindow());
+//        if (file != null) {
+//            System.out.println(file.getPath());
+//        } else System.out.println("Chooser was canceled");
+        List<File> files = chooser.showOpenMultipleDialog(gridPane.getScene().getWindow());
+        if (files != null) {
+            for(File file : files)
+            {
+                System.out.println(file.getPath());
+            }
+        } else System.out.println("Chooser was canceled");
     }
 
     @FXML
