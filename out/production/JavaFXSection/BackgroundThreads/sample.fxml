@@ -10,5 +10,5 @@
     <Button text="Get Employees Names" onAction="#buttonPressed" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
     <ListView GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="listView"/>
     <ProgressBar fx:id="progressBar" GridPane.rowIndex="2" GridPane.columnIndex="0" visible="false"/>
-    <Label fx:id="progressLabel" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <Label fx:id="progressLabel" GridPane.columnIndex="0" GridPane.rowIndex="3" visible="false"/>
 </GridPane>
