@@ -90,6 +90,9 @@ public class Datasource {
     public static final String QUERY_ALBUMS_BY_ID = "SELECT * FROM " + TABLE_ALBUMS + " WHERE " + COLUMN_ALBUM_ARTIST + " = ?" +
             " ORDER BY " + COLUMN_ALBUM_ARTIST + " COLLATE NOCASE";
 
+    public static final String UPDATE_ARTIST_NAME = "UPDATE " + TABLE_ARTISTS + " SET " +
+            COLUMN_ARTIST_NAME + " = ? WHERE " + COLUMN_ARTIST_ID + " = ?";
+
 
     private Connection conn;
     private PreparedStatement querySongInfoView;
@@ -100,6 +103,7 @@ public class Datasource {
     private PreparedStatement queryArtist;
     private PreparedStatement queryAlbum;
     private PreparedStatement queryAlbumsByArtistID;
+    private PreparedStatement updateArtistName;
 
     private static Datasource instance = new Datasource();
 
@@ -127,6 +131,7 @@ public class Datasource {
             queryAlbum = conn.prepareStatement(QUERY_ALBUM);
 
             queryAlbumsByArtistID = conn.prepareStatement(QUERY_ALBUMS_BY_ID);
+            updateArtistName = conn.prepareStatement(UPDATE_ARTIST_NAME);
             return true;
 
         } catch (SQLException e) {
@@ -151,6 +156,9 @@ public class Datasource {
             }
             if (queryArtist != null) {
                 queryArtist.close();
+            }
+            if (updateArtistName != null) {
+                updateArtistName.close();
             }
             if (queryAlbum != null) {
                 queryAlbum.close();
@@ -188,6 +196,11 @@ public class Datasource {
 
             List<Artist> listOfArtists = new ArrayList<>();
             while (results.next()) {
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Artist artist = new Artist();
                 artist.setId(results.getInt(INDEX_ARTIST_ID));
                 artist.setName(results.getString(INDEX_ARTIST_NAME));
@@ -388,4 +401,20 @@ public class Datasource {
 
 
     }
+
+
+    public boolean updateArtistName(int id, String newName) {
+        try {
+            updateArtistName.setString(1, newName);
+            updateArtistName.setInt(2, id);
+            int affectedRecords = updateArtistName.executeUpdate();
+
+            return affectedRecords == 1;
+
+        } catch (SQLException e) {
+            System.out.println("Update failed: " + e.getMessage());
+            return false;
+        }
+    }
+
 }
