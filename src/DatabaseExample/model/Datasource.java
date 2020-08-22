@@ -87,6 +87,9 @@ public class Datasource {
     public static final String QUERY_ALBUM = "SELECT " + COLUMN_ALBUM_ID + " FROM " + TABLE_ALBUMS + " WHERE "
             + COLUMN_ALBUM_NAME + " = ?";
 
+    public static final String QUERY_ALBUMS_BY_ID = "SELECT * FROM " + TABLE_ALBUMS + " WHERE " + COLUMN_ALBUM_ARTIST + " = ?" +
+            " ORDER BY " + COLUMN_ALBUM_ARTIST + " COLLATE NOCASE";
+
 
     private Connection conn;
     private PreparedStatement querySongInfoView;
@@ -96,6 +99,7 @@ public class Datasource {
 
     private PreparedStatement queryArtist;
     private PreparedStatement queryAlbum;
+    private PreparedStatement queryAlbumsByArtistID;
 
     private static Datasource instance = new Datasource();
 
@@ -121,6 +125,8 @@ public class Datasource {
 
             queryArtist = conn.prepareStatement(QUERY_ARTIST);
             queryAlbum = conn.prepareStatement(QUERY_ALBUM);
+
+            queryAlbumsByArtistID = conn.prepareStatement(QUERY_ALBUMS_BY_ID);
             return true;
 
         } catch (SQLException e) {
@@ -148,6 +154,9 @@ public class Datasource {
             }
             if (queryAlbum != null) {
                 queryAlbum.close();
+            }
+            if (queryAlbumsByArtistID != null) {
+                queryAlbumsByArtistID.close();
             }
             if (conn != null) {
                 conn.close();
@@ -196,28 +205,6 @@ public class Datasource {
     }
 
     public List<String> queryAlbumsForArtist(String artistName, int sortOrder) {
-        //select albums.name as album from albums inner join artists on artists._id=albums.artist where artists.name ='Pink Floyd'
-        //order by albums.name collate NOCASE;
-////        sb.append(TABLE_ALBUMS);
-////        sb.append(".");
-////        sb.append(COLUMN_ALBUM_NAME);
-////        sb.append(" FROM ");
-////        sb.append(TABLE_ALBUMS);
-////        sb.append(" INNER JOIN ");
-////        sb.append(TABLE_ARTISTS);
-////        sb.append(" ON ");
-////        sb.append(TABLE_ARTISTS);
-////        sb.append(".");
-////        sb.append(COLUMN_ARTIST_ID);
-////        sb.append("=");
-////        sb.append(TABLE_ALBUMS);
-////        sb.append(".");
-////        sb.append(COLUMN_ALBUM_ARTIST);
-////        sb.append(" WHERE ");
-////        sb.append(TABLE_ARTISTS);
-////        sb.append(".");
-////        sb.append(COLUMN_ARTIST_NAME);
-////        sb.append("=");
         StringBuilder sb = new StringBuilder(QUERY_ALBUMS_BY_ARTIST_START);
         sb.append(artistName);
         sb.append("\"");
@@ -246,6 +233,29 @@ public class Datasource {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public List<Album> queryAlbumsForArtistID(int id) {
+        try {
+            queryAlbumsByArtistID.setInt(1, id);
+            List<Album> listOfAlbums = new ArrayList<>();
+
+            ResultSet results = queryAlbumsByArtistID.executeQuery();
+            while (results.next()) {
+                Album returnedAlbum = new Album();
+                returnedAlbum.setId(results.getInt(1));
+                returnedAlbum.setName(results.getString(2));
+                returnedAlbum.setArtistId(3);
+
+                listOfAlbums.add(returnedAlbum);
+
+            }
+            return listOfAlbums;
+        } catch (SQLException e) {
+            System.out.println("Couldn't querry albums " + e.getMessage());
+            return null;
+        }
+
     }
 
 

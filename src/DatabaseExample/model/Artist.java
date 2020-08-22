@@ -7,12 +7,13 @@ public class Artist {
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
 
-    public int getId() {
-        return id.get();
+    public Artist() {
+        this.id = new SimpleIntegerProperty();
+        this.name = new SimpleStringProperty();
     }
 
-    public SimpleIntegerProperty idProperty() {
-        return id;
+    public int getId() {
+        return id.get();
     }
 
     public void setId(int id) {
@@ -21,10 +22,6 @@ public class Artist {
 
     public String getName() {
         return name.get();
-    }
-
-    public SimpleStringProperty nameProperty() {
-        return name;
     }
 
     public void setName(String name) {
